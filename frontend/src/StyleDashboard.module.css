@@ -1,0 +1,16 @@
+:root{
+    --maxWidth:1920px;
+}
+
+.child{
+    width: 80%;
+    margin: auto;
+    height: 80vh;
+}
+
+.child > div{
+    display: flex;
+    margin: auto;
+    width: max-content;
+    
+}
