@@ -1,4 +1,5 @@
 import React from 'react';
+import "./StyleDashboard.module.css";
 import Cookies from 'js-cookie';
 
 const Dashboard = () => {
@@ -15,14 +16,25 @@ const Dashboard = () => {
       const checkInterval = setInterval(() => {
         const allCookies = Cookies.get();
         if (allCookies['google']) {
-          clearInterval(checkInterval);
+          console.log(allCookies);
+          
           googleLoginWindow.close();
           window.location.reload();
+          clearInterval(checkInterval);
         }
-      }, 2500);
+      }, 1000);
 
     } catch (error) {
       console.error('Error during authentication:', error);
+    }
+  }
+
+  function handleLogOut() {
+    const allCookies = Cookies.get();
+    if (allCookies['sweton-token-authentication-user']) {
+      Cookies.remove('sweton-token-authentication-user');
+      localStorage.setItem('seeton-web-cart', JSON.stringify([]));
+      window.location.reload();
     }
   }
 
