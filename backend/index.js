@@ -8,9 +8,10 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT;
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
 require('dotenv').config();
 app.use(cors({
-  origin: 'https://sweton-full-stack.vercel.app',
+  origin: CORS_ORIGIN,
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

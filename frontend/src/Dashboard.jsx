@@ -1,49 +1,45 @@
-import React from 'react'
-import "./StyleDashboard.module.css"
+import React from 'react';
+import "./StyleDashboard.module.css";
 import Cookies from 'js-cookie';
+
 const Dashboard = () => {
   async function authenticateWithGoogle() {
     try {
-      const googleAuthURL = `http://localhost:8080/auth/google`;
-      const googleLoginWindow = window.open(googleAuthURL, '_blank', 'width=600,height=600');
+      const googleAuthURL = `${process.env.REACT_APP_AUTH_URL}`;
+      const googleLoginWindow = window.open(googleAuthURL, '_blank', 'width=700,height=1000');
 
       if (!googleLoginWindow) {
         console.error('Google login window blocked or closed.');
         return;
       }
-      console.log(googleLoginWindow)
-      const allCookies = Cookies.get();
-      
-        console.log(allCookies)
-      
 
-     } catch (error) {
+      const checkInterval = setInterval(() => {
+        const allCookies = Cookies.get();
+        if (allCookies['google']) {
+          console.log(allCookies);
+          clearInterval(checkInterval);
+          googleLoginWindow.close();
+          window.location.reload();
+        }
+      }, 2500);
+
+    } catch (error) {
       console.error('Error during authentication:', error);
     }
   }
 
-    function handleLogOut(){
-      const allCookies = Cookies.get();
-      
-      if(allCookies['sweton-token-authentication-user']){
-        Cookies.remove('sweton-token-authentication-user');
-        
-        localStorage.setItem('seeton-web-cart',JSON.stringify([]));
-        window.location.reload();
-      }
-      
-    }
+
+
   return (
     <div>
       <div className='child'>
         <div>
-        <button onClick={authenticateWithGoogle}>Google</button>
-        <button>Facebook</button>
+          <button onClick={authenticateWithGoogle}>Google</button>
+          <button>Facebook</button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-
-export default Dashboard
+export default Dashboard;
