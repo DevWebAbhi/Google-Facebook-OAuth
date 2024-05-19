@@ -15,10 +15,10 @@ const Dashboard = () => {
 
       const checkInterval = setInterval(() => {
         const allCookies = Cookies.get();
-       
+        
           console.log(allCookies);
           
-         // googleLoginWindow.close();
+          
           clearInterval(checkInterval);
         
       }, 3000);
