@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   function handleLogOut() {
     const allCookies = Cookies.get();
-    if (allCookies['sweton-token-authentication-user']) {
+    if (allCookies['google']) {
       Cookies.remove('sweton-token-authentication-user');
       localStorage.setItem('seeton-web-cart', JSON.stringify([]));
       window.location.reload();
