@@ -15,14 +15,13 @@ const Dashboard = () => {
 
       const checkInterval = setInterval(() => {
         const allCookies = Cookies.get();
-        if (allCookies['google']) {
+       
           console.log(allCookies);
           
-          googleLoginWindow.close();
-          window.location.reload();
+         // googleLoginWindow.close();
           clearInterval(checkInterval);
-        }
-      }, 1000);
+        
+      }, 3000);
 
     } catch (error) {
       console.error('Error during authentication:', error);
