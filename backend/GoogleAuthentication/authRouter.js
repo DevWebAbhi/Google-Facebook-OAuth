@@ -2,12 +2,6 @@ const passport = require('passport');
 const express = require('express');
 const authRouter = express.Router();
 
-const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
-
-function isLoggedIn(req, res, next) {
-  req.user ? next() : res.sendStatus(401);
-}
-
 authRouter.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 authRouter.get('/google/callback', (req, res, next) => {
@@ -22,16 +16,17 @@ authRouter.get('/google/callback', (req, res, next) => {
       }
 
       res.cookie('google', JSON.stringify(user), {
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
         sameSite: 'None'
       });
-      res.redirect(CORS_ORIGIN);
+      res.redirect(process.env.CORS_ORIGIN);
     });
   })(req, res, next);
 });
 
-authRouter.get('/googleg', isLoggedIn, (req, res) => {
+authRouter.get('/googleg', (req, res) => {
+  if (!req.user) return res.sendStatus(401);
   res.render('userDetails', { displayName: req.user.displayName });
 });
 
