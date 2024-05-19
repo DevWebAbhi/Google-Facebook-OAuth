@@ -1,5 +1,4 @@
 import React from 'react';
-import "./StyleDashboard.module.css";
 import Cookies from 'js-cookie';
 
 const Dashboard = () => {
@@ -16,7 +15,6 @@ const Dashboard = () => {
       const checkInterval = setInterval(() => {
         const allCookies = Cookies.get();
         if (allCookies['google']) {
-          console.log(allCookies);
           clearInterval(checkInterval);
           googleLoginWindow.close();
           window.location.reload();
@@ -27,8 +25,6 @@ const Dashboard = () => {
       console.error('Error during authentication:', error);
     }
   }
-
-
 
   return (
     <div>
